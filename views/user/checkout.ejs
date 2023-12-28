@@ -899,6 +899,10 @@ document.getElementById('couponForm').addEventListener('submit', function (event
     
     discountprice = (data.totalSum - data.discountedTotal).toFixed(1);
 } else {
+
+
+
+    
    
     offerPrice = calculateOfferPrice(data.totalSum, data.coupon.discountPrice).toFixed(1);
     discountPrice = data.coupon.discountPrice;
