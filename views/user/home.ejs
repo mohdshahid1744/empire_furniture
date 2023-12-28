@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+	
+		<title>Empire furniture</title>
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
+		<!-- Bootstrap JS -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		
+		<!-- OwlCarousel JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+		
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+		
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link href="/static/tiny-slider.css" rel="stylesheet">
+<link href="/static/style2.css" rel="stylesheet">
+			<style>
+
+
+.hero__items {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  transition: height 0.3s ease;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)); 
+  transition: background 0.3s ease;
+}
+
+.hero__items:hover .overlay {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)); 
+}
+
+.hero__text {
+  position: relative;
+  z-index: 1; 
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+}
+.hero__social {
+  margin-top: 20px;
+}
+
+.social-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #ffc107; 
+}
+
+
+.stylish-title {
+  font-size: 28px;
+  color: #ffc107;
+  letter-spacing: 1px;
+}
+
+.stylish-description {
+  font-size: 36px;
+  color: #fff;
+  letter-spacing: 1.5px;
+}
+
+.stylish-coupon {
+  font-size: 18px;
+  color: #4caf50;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 767px) {
+ 
+  .stylish-title {
+    font-size: 24px;
+  }
+
+  .stylish-description {
+    font-size: 15px;
+  }
+  .stylish-coupon {
+    font-size: 16px;
+  }
+  .stylish-button {
+      font-size: 12px; 
+      padding: 4px 10px; 
+    }
+  
+}
+
+@media (max-width: 767px) {
+   .hero__items {
+	  height: 200px; 
+	}
+}
+			  </style>
+		
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+                <a class="navbar-brand" href="/home">Empire <span style="color: red;">Furniture</span></a>
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="/home">Home</a>
+						</li>
+						<li><a class="nav-link" href="/shop">Shop</a></li>
+						<li><a class="nav-link" href="/services">Services</a></li>
+						<li><a class="nav-link" href="/blog">Blog</a></li>
+						<li><a class="nav-link" href="/contact">Contact us</a></li>
+                        <div class="mt-2">
+                            
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li><a class="nav-link" href="userinfo"><img src="/static/user.svg"></a></li>
+						<li><a class="nav-link" href="/cart"><img src="/static/cart.svg"></a></li>
+					</ul>
+                    <% if (userId) { %>
+						<form action="/logout" method="post" class="d-grid">
+							<button type="submit" class="btn btn-warning" style="margin-left: 50px;">Logout</button>
+						</form>
+					<% } else { %>
+						<form action="/login" method="post" class="d-grid">
+							<button type="submit" class="btn btn-warning" style="margin-left: 50px;">Login</button>
+						</form>
+					<% } %>
+					
+                </div>
+				</div>
+			</div>
+				
+		</nav>
+		<!-- End Header/Navigation -->
+
+		<!-- Start Hero Section -->
+			<div class="hero" >
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
+								<p class="mb-4">Discover the joy of interior design as you explore our diverse range of furniture, where you'll find the perfect combination of modern trends, all at your fingertips.</p>
+								<p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a></p>
+							</div>
+						</div>
+						<div class="container-fluid col-lg-7 col-md-6 col-sm-12 col-12">
+							<div class="hero-img-wrap">
+								<img src="/static/couch.png" class="img-fluid">
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+	
+		  
+		
+		
+		  
+		<section class="Hero" style="margin-top: 20px;">
+			<div class="hero__slider owl-carousel">
+			  <% banners.forEach((banner) => { %>
+				<div class="hero__items" style="background-image: url('/static/<%= banner.bannerImage.filename %>');">
+					<div class="overlay"></div>
+				  <div class="container" style="margin-top: 10px;">
+					<div class="row">
+					  <div class="col-xl-5 col-lg-7 col-md-8">
+						<div class="hero__text text-white">
+							<h6 class="mb-3 text-uppercase font-weight-bold text-shadow stylish-title"><%= banner.title %></h6>
+							<h2 class="display-4 mb-4 text-shadow stylish-description"><%= banner.description %></h2>
+							<p class="lead mb-4 text-shadow stylish-coupon">Use Coupon Code: <%= banner.couponCode %></p>
+							<p><a href="/shop" class="btn btn-secondary me-2 stylish-button">Shop Now</a></p>
+
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  <% }) %>
+			</div>
+		  </section>
+		  
+
+		<!-- Banner Section Begin -->
+		<section class="banner spad" style="margin-top: 60px;">
+		
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-7 offset-lg-4">
+						<div class="banner__item">
+							<div class="banner__item__pic" >
+								<img src="/static/table.jpg" alt="" style="width: 360px;">
+							</div>
+							<div class="banner__item__text">
+								<h2>Best tables</h2>
+								<a href="/shop">Shop now</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="banner__item banner__item--middle" style="margin-top: 100px;">
+							<div class="banner__item__pic">
+								<img src="static/product-2.png" alt="" style="width: 321px;">
+							</div>
+							<div class="banner__item__text">
+								<h2>Make your home perfect</h2>
+								<a href="/shop">Shop now</a>
+							</div>
+						
+					</div>
+					</div>
+					<div class="col-lg-7">
+						<div class="banner__item banner__item--last" >
+							<div class="banner__item__pic">
+								<img src="static/product-3.png" alt="" style="width: 321px;">
+							</div>
+							<div class="banner__item__text">
+								<h2>Perfection at ease</h2>
+								<a href="/shop">Shop now</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Banner Section End -->
+	
+
+		<!-- Start Why Choose Us Section -->
+		<div class="why-choose-section">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-6">
+						<h2 class="section-title">Why Choose Us</h2>
+						<p>Choose us for a seamless blend of innovation, reliability, and exceptional service, tailored to meet your unique needs and elevate your experience.</p>
+
+						<div class="row my-5">
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="/static/truck.svg" alt="Image" class="imf-fluid">
+									</div>
+									<h3>Fast &amp; Free Shipping</h3>
+									<p>Enjoy the convenience of free shipping on all orders, making your online shopping experience even more delightful.</p>
+								</div>
+							</div>
+
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="/static/bag.svg" alt="Image" class="imf-fluid">
+									</div>
+									<h3>Easy to Shop</h3>
+									<p>Enjoy a seamless shopping experience with our user-friendly website, making it easy and convenient to find and purchase your desired products.</p>
+								</div>
+							</div>
+
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="/static/support.svg" alt="Image" class="imf-fluid">
+									</div>
+									<h3>24/7 Support</h3>
+									<p>Experience uninterrupted assistance with our 24/7 support, ensuring that help is always available whenever you need it.</p>
+								</div>
+							</div>
+
+							<div class="col-6 col-md-6">
+								<div class="feature">
+									<div class="icon">
+										<img src="/static/return.svg" alt="Image" class="imf-fluid">
+									</div>
+									<h3>Hassle Free Returns</h3>
+									<p>Enjoy a hassle-free return experience on our website, ensuring your satisfaction is our priority.</p>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-lg-5">
+						<div class="img-wrap">
+							<img src="/static/why-choose-us-img.jpg" alt="Image" class="img-fluid">
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- End Why Choose Us Section -->
+
+		<!-- Start We Help Section -->
+		<div class="we-help-section">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-7 mb-5 mb-lg-0">
+						<div class="imgs-grid">
+							<div class="grid grid-1"><img src="/static/img-grid-1.jpg" alt="Untree.co"></div>
+							<div class="grid grid-2"><img src="/static/img-grid-2.jpg" alt="Untree.co"></div>
+							<div class="grid grid-3"><img src="/static/img-grid-3.jpg" alt="Untree.co"></div>
+						</div>
+					</div>
+					<div class="col-lg-5 ps-lg-5">
+						<h2 class="section-title mb-4">We Help You Make Modern Interior Design</h2>
+						<p>Elevate your living or working environment with our design prowess, dedicated to creating modern interiors that harmonize contemporary aesthetics with cutting-edge functionality, ensuring a space that reflects your unique personality and embraces the essence of modern living.</p>
+
+						<ul class="list-unstyled custom-list my-4">
+							<li>Expert modern interior design</li>
+							<li>Stylish integration of form and function</li>
+							<li>Tailored solutions for personalized spaces</li>
+							<li>Innovation-driven approach for a contemporary aesthetic</li>
+						</ul>
+						<p><a href="/shop" class="btn btn-dark me-2">Explore</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End We Help Section -->
+
+	
+
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="/static/sofa.png" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="/static/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Empire <span style="color: red;">Furniture</span></a></div>
+						<p class="mb-4">our products are crafted with exceptional materials, ensuring durability and longevity. We take pride in offering modern interior design solutions that not only enhance the aesthetics of any space but also provide utmost comfort and functionality. </p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Delivery</a></li>
+									<li><a href="#">Payment methods</a></li>
+									<li><a href="#">Return & Exchange</a></li>
+								</ul>
+							</div>
+
+						
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
+            </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/tiny-slider.js"></script>
+script src="js/custom.js"></script>
+<link rel="stylesheet" href="/path/to/owl.carousel.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+
+
+		<script>
+			jQuery(document).ready(function () {
+			  var heroSlider = jQuery(".hero__slider");
+			  heroSlider.owlCarousel({
+				items: 1,
+				loop: true,
+				autoplay: true,
+				autoplayTimeout: 5000,
+				nav: true,
+				responsiveClass: true,
+				responsive: {
+				  0: { items: 1 },
+				  600: { items: 1 },
+				  1000: { items: 1 },
+				},
+			  });
+		  
+		
+			});
+		  </script>
+
+	</body>
+
+</html>

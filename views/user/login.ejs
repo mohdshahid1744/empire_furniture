@@ -1,0 +1,54 @@
+<%- include('../partials/head'); -%>
+<style>
+   html,body{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  background: #3b5d50;
+}
+</style>
+    <div class="wrapper">
+        <div class="title-text">
+            <div class="title login">
+                <span class="word1">Empire</span>
+                <span class="word2">Furniture</span>
+            </div>
+        </div>
+        
+        <div class="form-container">
+          <div class="slide-controls">
+            
+            <h2 class="slide login-heading" style="font-size: 32px; color: #01632a; margin-right: 10px;font-weight: bold; margin-right: 10px;    margin-bottom: 10px;text-transform: uppercase;letter-spacing: 2px;">Login</h2>
+          </div>
+          </div>
+          <div class="form-inner">
+            <form action="/login" class="login" method="post">
+              <div class="field">
+                <input type="text" name="email" placeholder="Email" required>
+              </div>
+              
+              <div class="field">
+                <input type="password" name="password" placeholder="Password" required>
+              </div>
+              
+              <div class="field btn">
+                <div class="btn-layer" style="margin-top: -6px;" ></div>
+                <input type="submit" value="Login">
+              </div>
+              <div><a href="/forgotpassword" style="color: #01632a;">Forgot Password?</a></div>
+              <div class="signup-link">Not a member? <a href="/signup">Signup now</a></div>
+            </form>
+          
+          </div>
+        </div>
+        <% 
+        if(typeof message !== 'undefined'){ 
+            %>
+                <p style="color:red;margin-left: 45px;"><%= message%> </p>
+            <%
+        }
+      %>
+      </div>
+      
+      <%- include( '../partials/footer') %>

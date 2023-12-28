@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="/static/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="/static/tiny-slider.css" rel="stylesheet">
+		<link href="/static/style2.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Popper.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        
+        <!-- Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<title>Empire furniture</title>
+        <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+    <head>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        <!-- Add this link to your head section -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/0.21.0/medium-zoom.min.css">
+<!-- Add these script and link tags to include lightbox2 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+
+        <style>
+            .add-cart {
+                background-color: rgb(255, 249, 249);
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-align: center;
+                font-size: 16px;
+                transition: background-color 0.3s; 
+            }
+        
+            
+            .add-cart:hover {
+                background-color: #12c118; 
+            }
+            .wishlist-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: black; /* Choose your desired background color */
+    color: #fff; /* Text color */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.wishlist-btn:hover {
+    background-color: grey; /* Change the background color on hover */
+}
+        </style>
+    </head>
+    
+ 
+
+
+<body>
+	
+	<!-- Start Header/Navigation -->
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+        <div class="container">
+            <a class="navbar-brand" href="/home">Empire <span style="color: red;">Furniture</span></a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="active"><a class="nav-link" href="/shop">Shop</a></li>
+                    <li><a class="nav-link" href="/services">Services</a></li>
+                    <li><a class="nav-link" href="/blog">Blog</a></li>
+                    <li><a class="nav-link" href="/contact">Contact us</a></li>
+                </ul>
+
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="/userinfo"><img src="/static/user.svg"></a></li>
+                    <li><a class="nav-link" href="/cart"><img src="/static/cart.svg"></a></li>
+                </ul>
+                <div class="mt-2">
+                    <% if (userId) { %>
+						<form action="/logout" method="post" class="d-grid">
+							<button type="submit" class="btn btn-warning" style="margin-left: 50px;">Logout</button>
+						</form>
+					<% } else { %>
+						<form action="/login" method="post" class="d-grid">
+							<button type="submit" class="btn btn-warning" style="margin-left: 50px;">Login</button>
+						</form>
+					<% } %>
+                </div>
+            </div>
+        </div>
+            
+    </nav>
+    <!-- End Header/Navigation -->
+
+
+    
+    <!-- Shop Details Section Begin -->
+    <section class="shop-details">
+        <div class="product__details__pic">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__details__breadcrumb" style="background-color: #f8f9fa;padding: 10px;border-radius: 5px;display: flex;align-items: center;font-size: 14px;margin-top: 10px;">
+                            <a href="/home" class="breadcrumb-link" style=" color: #3b5d50;text-decoration: none;transition: color 0.3s ease;" onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#3b5d50'">Home</a>
+                            <i class="fas fa-chevron-right breadcrumb-separator" style=" margin: 0 8px;color: #6c757d;"></i>
+                            <a href="/shop" class="breadcrumb-link" style=" color: #3b5d50;text-decoration: none;transition: color 0.3s ease;" onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#3b5d50'">Shop</a>
+                            <i class="fas fa-chevron-right breadcrumb-separator" style=" margin: 0 8px;color: #6c757d;"></i>
+                            <span class="current-page" style="color: #495057;font-weight: bold;">Product Details</span>
+                        </div>
+                        
+                    </div>
+                </div>
+             <div class="row">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <% for (let i = 0; i < productImages.length; i++) { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="thumbnail-<%= i %>" data-toggle="tab" href="#image-<%= i %>">
+                                        <img src="/static/<%= productImages[i] %>" alt="Thumbnail <%= i + 1 %>" style="width: 100%; height: 100px; object-fit: cover;">
+                                    </a>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                
+                    <div class="col-lg-6 col-md-9">
+                        <div class="tab-content">
+                            <% for (let i = 0; i < productImages.length; i++) { %>
+                                <div class="tab-pane fade<%= i === 0 ? ' show active' : '' %>" id="image-<%= i %>">
+                                    <a href="/static/<%= productImages[i] %>" data-lightbox="product-images" data-title="">
+                                        <img
+                                            src="/static/<%= productImages[i] %>"
+                                            alt=""
+                                            style="width: 100%; height: auto; max-height: 600px; object-fit: contain;"
+                                        >
+                                    </a>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+             </div>
+        <div class="product__details__content">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="product__details__text">
+                            <h4><%= products[0].productName %> </h4>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span> - 5 Reviews</span>
+                            </div>
+                            <% if (products[0].productPrice !== products[0].offerPrice) { %>
+                                <h3>
+                                    <span style="text-decoration: line-through;">₹<%= products[0].productPrice %></span>
+                        
+                                    ₹<%= products[0].offerPrice %>
+                                </h3>
+                            <% } else { %>
+                                <h3>₹<%= products[0].productPrice %></h3>
+                            <% } %>
+                            <div class="product__details__last__option">
+                               
+                                <ul style="list-style: none;">
+                                    
+                                    <li style="margin-right: 40px;"><span>Categories:</span><%= products[0].productCategory.category %> </li>
+                                </ul>
+                            </div>
+
+               
+                            <div class="d-flex justify-content-around">
+                                <div class="product__details__cart__option">
+                                    <a class="add-cart" value="pr" data-product-id="<%= products[0]._id %>" data-user-id="<%= userId %>" style="background-color: green !important;">+ Add to Cart</a>
+                                </div>
+                            
+                                <div class="product__details__btns__option" data-product-id="<%= products[0]._id %>" data-user-id="<%= userId %>" style="margin-top: 30px;">
+                                    <a class="wishlist-btn" 
+                                    data-product-id="<%= products[0]._id %>" 
+                                    data-user-id="<%= userId %>"
+                                    data-product-name="<%= products[0].productName %>"
+                                     data-product-image="<%= products[0].productImage %>"
+                                    data-product-price="<%= products[0].productPrice %>"
+                                    style="cursor: pointer;">
+                                    <i class="fa fa-heart"></i> Add to Wishlist
+                                      </a>
+
+                                </div>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__details__tab">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#tabs-5"
+                                    role="tab">Description</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer
+                                    Previews(5)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional
+                                    information</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabs-5" role="tabpanel">
+                                    <div class="product__details__tab__content">
+                                        
+                                        <div class="product__details__tab__content__item">
+                                            <h5>Products Infomation</h5>
+                                            <p>
+                                                Chairs, the unsung heroes of comfort and style, come in a myriad of designs to suit every taste and need. From classic to contemporary, there's a chair for every space and occasion.
+                                                Take the ergonomic office chair, a modern marvel designed for long hours of productivity. With adjustable features, lumbar support, and breathable materials, it's a throne for the industrious.
+                                                For those seeking a touch of luxury, consider a plush, velvet-upholstered accent chair. Its chic design effortlessly elevates any room, offering both comfort and a statement piece for your decor.</p>
+                                            <p>In the realm of versatility, folding chairs stand out. Compact and convenient, they're perfect for impromptu gatherings or additional seating when the need arises. Practicality meets comfort in these foldable wonders.</p>
+                                        </div>
+                                        <div class="product__details__tab__content__item">
+                                            <h5>Material used</h5>
+                                            <p>Chairs are crafted from a diverse range of materials, each lending its unique character to the design. Wood, a timeless choice, provides warmth and durability, with options like oak, walnut, and mahogany. Metal chairs offer a sleek, modern aesthetic, often aluminum or steel for strength. Upholstered chairs blend comfort and style, featuring fabrics like linen, leather, or velvet. Plastic chairs, lightweight and versatile, suit contemporary settings. Innovative materials like acrylic and molded polymers push the boundaries of design. Whatever the choice, materials play a pivotal role, defining a chair's aesthetics, comfort, and longevity in both form and function.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shop Details Section End -->
+
+    
+
+  
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="/static/sofa.png" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="/static/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Empire <span style="color: red;">Furniture</span></a></div>
+						<p class="mb-4">our products are crafted with exceptional materials, ensuring durability and longevity. We take pride in offering modern interior design solutions that not only enhance the aesthetics of any space but also provide utmost comfort and functionality. </p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Delivery</a></li>
+									<li><a href="#">Payment methods</a></li>
+									<li><a href="#">Return & Exchange</a></li>
+								</ul>
+							</div>
+
+						
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
+            </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script> 
+        <script>
+            $(document).ready(function() {
+                $('.image-zoom-link').magnificPopup({
+                    type: 'image',
+                });
+            });
+        
+        </script>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+    const addToCartButtons = document.querySelectorAll('.add-cart');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', async function () {
+            const productId = button.getAttribute('data-product-id');
+            const userId = button.getAttribute('data-user-id');
+
+            if (!userId) {
+                window.location.href = '/login';
+                return;
+            }
+
+            const data = {
+                productId,
+                userId,
+            };
+
+            try {
+                const response = await fetch(`/cart/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.message === 'Product added to the cart successfully.') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Product added to the cart successfully.'
+                        });
+                    } else if (result.message === 'Product is already in the cart.') {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Info',
+                            text: 'Product is already in the cart.'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to add the product to the cart.'
+                        });
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Failed to communicate with the server.'
+                    });
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred. Please try again.'
+                });
+            }
+        });
+    });
+});
+          
+        </script>
+       <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToWishlistButtons = document.querySelectorAll('.wishlist-btn');
+        
+            addToWishlistButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const productId = button.getAttribute('data-product-id');
+                    const userId = button.getAttribute('data-user-id');
+                    const productName = button.getAttribute('data-product-name');
+                    const productImage = button.getAttribute('data-product-image');
+                    const productPrice = button.getAttribute('data-product-price');
+        
+                    const data = {
+                        productId,
+                        userId,
+                        productName,
+                        productImage,
+                        productPrice,
+                    };
+
+                    if (!userId) {
+                window.location.href = '/login';
+                return;
+            }
+        
+                    try {
+                        const response = await fetch(`/wishlist/${productId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data),
+                        });
+        
+                        if (response.ok) {
+                            const result = await response.json();
+                            if (result.message === 'Product added to the wishlist successfully.') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: 'Product added to the wishlist successfully.'
+                                });
+                            } else if (result.message === 'Product is already in the wishlist.') {
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: 'Info',
+                                    text: 'Product is already in the wishlist.'
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Failed to add the product to the wishlist. Server response: ' + result.message,
+                                });
+                            }
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to communicate with the server. Status: ' + response.status,
+                            });
+                        }
+                    } catch (error) {
+                        console.error('An error occurred:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred. Please try again.',
+                        });
+                    }
+                });
+            });
+        });
+        </script>
+        
+            
+  
+  
+</body>
+</html>

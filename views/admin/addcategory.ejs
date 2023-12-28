@@ -1,0 +1,103 @@
+
+<%- include('../partials/dashhead') %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        button {
+            background-color: #3b5d50;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4b8f75;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+  <form method="POST" action="/admin/addcategory">
+    <label for="CategoryName">Category Name:</label>
+    <input type="text" id="CategoryName" name="CategoryName" required>
+    <p>
+        <label for="discountprice">Discount Price</label>
+        <input type="text" name="discountprice" id="discountprice" oninput="toggleDiscountRequired()" required>
+    </p>
+    <button type="submit">Add Category</button>
+  </form>
+   <% if (message) { %>
+
+      <p style="color: red;"><%= message %></p>
+
+ <% } %>
+
+ <script>
+    function toggleDiscountRequired() {
+        const discountInput = document.getElementById("discountprice");
+        const offerInput = document.getElementById("offer");
+
+        // Set 'required' attribute for discountprice based on the value of offer
+        discountInput.required = offerInput.value.trim() === "";
+
+        // Validate the discount price as a number
+        const discountValue = discountInput.value.trim();
+        const isNumeric = !isNaN(discountValue);
+
+        if (!isNumeric) {
+            discountInput.setCustomValidity("Please enter a valid number.");
+        } else {
+            discountInput.setCustomValidity("");
+        }
+    }
+</script>
+</body>
+</html>

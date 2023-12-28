@@ -1,0 +1,289 @@
+<%- include('../partials/dashhead') %>
+<%- include('../partials/head') %>
+<style>
+  .card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-body {
+    text-align: center;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .card-text {
+    font-size: 1.2rem;
+    background: linear-gradient(to right, #ff3939, #f5639e);
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+
+ 
+  .card:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  .chart-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+  }
+
+  .chart-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .chart-wrapper {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  canvas {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  
+</style>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+  </ol>
+  <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Total Users</h5>
+            <p class="card-text" id="totalUsers">Loading...</p>
+          </div>
+        </div>
+        
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Total Revenue</h5>
+            <p class="card-text" id="totalRevenue">Loading...</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="chart-container">
+          <h3>Sales Report</h3>
+          <div class="chart-wrapper">
+            <canvas id="daily-sales-chart"></canvas>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="weekly-sales-chart"></canvas>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="yearly-sales-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Generate Orders Report</h4>
+        <form id="ordersReportForm">
+          <div class="mb-3">
+            <label for="startDate" class="form-label">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" class="form-control" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="endDate" class="form-label">End Date:</label>
+            <input type="date" id="endDate" name="endDate" class="form-control" required>
+          </div>
+  
+          <button type="submit" class="btn btn-success">Generate Report</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('/admin/dashboard/total-users')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById('totalUsers').textContent = data.totalUsers;
+        })
+        .catch(error => console.error('Error fetching total users:', error));
+  fetch('/admin/dashboard/sales-data')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      var dailySalesData = data.dailySales || [];
+      var weeklySalesData = data.weeklySales || [];
+      var yearlySalesData = data.yearlySales || [];
+      var dailyLabels = data.dailyLabels || [];
+      var weeklyLabels = data.weeklyLabels || [];
+      var yearlyLabels = data.yearlyLabels || [];
+
+var dailyCtx = document.getElementById('daily-sales-chart').getContext('2d');
+new Chart(dailyCtx, {
+  type: 'line',
+  data: {
+    labels: dailyLabels,
+    datasets: [
+      {
+        label: 'Daily Sales',
+        data: dailySalesData,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        fill: true, 
+        backgroundColor: 'rgba(255, 99, 132, 0.2)', 
+        lineTension: 0.4,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+var weeklyCtx = document.getElementById('weekly-sales-chart').getContext('2d');
+new Chart(weeklyCtx, {
+  type: 'line',
+  data: {
+    labels: weeklyLabels,
+    datasets: [
+      {
+        label: 'Weekly Sales',
+        data: weeklySalesData,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: true,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        lineTension: 0.4,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+var yearlyCtx = document.getElementById('yearly-sales-chart').getContext('2d');
+new Chart(yearlyCtx, {
+  type: 'line',
+  data: {
+    labels: yearlyLabels,
+    datasets: [
+      {
+        label: 'Yearly Sales',
+        data: yearlySalesData,
+        borderColor: 'rgba(255, 206, 86, 1)',
+        borderWidth: 2,
+        fill: true,
+        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        lineTension: 0.4,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+    })
+    .catch(error => console.error('Error fetching sales data:', error));
+});
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('ordersReportForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+    
+      window.location.href = `/admin/dashboard/orders-report?startDate=${startDate}&endDate=${endDate}`;
+    });
+  });
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+  fetch('/admin/dashboard/total-revenue') 
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data, 'lllllllllllllll');
+  
+      document.getElementById('totalRevenue').innerText = ` ₹${data.totalRevenue.toFixed(2)}`;
+    })
+    .catch(error => console.error('Error fetching total data:', error));
+});
+  
+  </script>
+</body>
+</html>

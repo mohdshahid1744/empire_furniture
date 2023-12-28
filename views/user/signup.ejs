@@ -1,0 +1,57 @@
+<%- include('../partials/head'); -%>
+<style>
+  html,body{
+ display: grid;
+ height: 100%;
+ width: 100%;
+ place-items: center;
+ background: #3b5d50;
+}
+</style>
+    <div class="wrapper">
+        <div class="title-text">
+            <div class="title signup">
+                <span class="word1">Empire</span>
+                <span class="word2">Furniture</span>
+            </div>
+        </div>
+        
+        <div class="form-container">
+          <div class="slide-controls">
+            <h2 class="slide login-heading" style="font-size: 32px; color: #01632a; margin-right: 10px;font-weight: bold; margin-right: 10px;    margin-bottom: 10px;text-transform: uppercase;letter-spacing: 2px;">Signup</h2>
+      
+          </div>
+          <div class="form-inner">
+
+            <form action="/signup" class="signup" method="post">
+              <div class="field">
+                <input type="text" name="name" placeholder="Name" required>
+              </div>
+              <div class="field">
+                <input type="email" name="email" placeholder="E-mail" required>
+              </div>
+              <div class="field">
+                <input type="number" name="mno" placeholder="Mobile Number" required>
+              </div>
+
+              <div class="field">
+                <input type="password" name="password" placeholder="Password" required>
+              </div>
+              <div class="field">
+                <input type="text" name="code" placeholder="Refferal Code" >
+              </div>
+              <div class="field btn">
+                <div class="btn-layer" style="margin-top: -6px;" ></div>
+                <input type="submit" value="Signup">
+              </div>
+              <div class="login-link">Already have account?<a href="/">Login</a></div>
+            </form>
+            
+          
+          </div>
+        </div>
+        <% if (typeof message !== 'undefined') { %>
+          <p style="color: green;"><%= message %></p>
+      <% } %>
+      </div>
+      <%- include( '../partials/footer') %>

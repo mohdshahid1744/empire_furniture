@@ -1,0 +1,56 @@
+<%- include('../partials/dashhead') %>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Category</title>
+</head>
+<body>
+   <% if (category) { %>
+<div class="row">
+    <div class="col-lg-10 m-auto">
+        <h2>Edit Category</h2>
+        <form method="POST" action="/admin/editcategory/<%= category._id %>">
+            <div class="form-group">
+                <label for="CategoryName">Category Name:</label>
+                <input type="text" class="form-control" id="CategoryName" name="CategoryName" value="<%= category.category %>">
+            </div>
+            <div class="form-group">
+                <label for="CategoryOffer">Offer:</label>
+                <input type="text" class="form-control" id="CategoryOffer" name="discountPrice" value="<%= category.discountPrice %>" oninput="validateOffer()">
+                <div id="offerValidationMessage" class="text-danger"></div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+        <% if (message) { %>
+
+            <p style="color: red;"><%= message %></p>
+      
+       <% } %>
+    </div>
+</div>
+<% } %>
+<script>
+    function validateOffer() {
+        const offerInput = document.getElementById("CategoryOffer");
+        const offerValidationMessage = document.getElementById("offerValidationMessage");
+
+        const offerValue = offerInput.value.trim();
+        const isNumeric = !isNaN(offerValue);
+
+        if (offerValue === "") {
+            offerValidationMessage.textContent = "Offer cannot be empty.";
+            offerInput.setCustomValidity("Empty offer");
+        } else if (!isNumeric) {
+            offerValidationMessage.textContent = "Please enter a valid number.";
+            offerInput.setCustomValidity("Invalid number");
+        } else {
+            offerValidationMessage.textContent = "";
+            offerInput.setCustomValidity("");
+        }
+    }
+</script>
+</body>
+</html>

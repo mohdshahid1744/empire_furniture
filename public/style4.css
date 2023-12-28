@@ -1,0 +1,247 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Sidebar Styles */
+/* Add the styles for the sidebar toggle and collapse transition */
+#sidebarToggle {
+    padding: 15px;
+    background-color: #3b5d50; /* Toggle button background color */
+    cursor: pointer;
+}
+
+#sidebarToggle a {
+    color: white;
+    text-decoration: none;
+}
+
+#sidebarToggle:hover {
+    background-color: #2a4340; /* Toggle button background color on hover */
+}
+
+#sidebarAccordion {
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+}
+
+#sidebarAccordion.collapsed {
+    width: 0;
+}
+
+.shop__sidebar__categories ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.shop__sidebar__categories li {
+    margin-bottom: 10px;
+}
+
+.shop__sidebar__categories a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.shop__sidebar__categories a:hover {
+    background-color: #e44d26;
+    color: #fff;
+}
+.shop__sidebar__categories-container.collapsed {
+    display: none;
+}
+.card-heading {
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.card-heading a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-heading a:hover {
+    text-decoration: underline;
+}
+
+
+/* Product Styles */
+.shop__product {
+    padding-left: 20px; /* Adjust spacing */
+}
+
+.product__item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product__item:hover {
+    transform: scale(1.05);
+}
+
+.product__item__pic {
+    position: relative;
+}
+
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.overlay-icons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.product__item:hover .overlay-icons {
+    display: block;
+}
+
+.overlay-icons a {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.overlay-icons img {
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+}
+
+.product__item__text {
+    margin-right: 100px;
+    margin-top: 20px;
+    background-color: #fff; /* Background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .product__item__text:hover {
+    transform: scale(1.05); /* Add a slight scale effect on hover */
+  }
+  
+  .product__item__text h6 {
+    font-size: 18px; /* Adjust font size */
+    margin-bottom: 10px;
+    color: #333; /* Text color */
+  }
+  
+  .product__item__text p {
+    font-size: 14px; /* Adjust font size */
+    color: #666; /* Text color */
+  }
+  
+  .product__item__text h5 {
+    font-size: 20px; /* Adjust font size for price */
+    color: #e44d26; /* Price color */
+    margin-top: 15px;
+  }
+  
+  /* Add animation for price on hover */
+  .product__item__text:hover h5 {
+    color: #333;
+    animation: shake 0.5s;
+  }
+  
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25%, 75% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+  
+
+
+  .cart__header {
+    background-color: #3b5d50;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.cart__item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.product-thumbnail img {
+    max-width: 100%;
+    height: auto;
+}
+
+.pro-qty-button {
+    background-color: #3b5d50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.pro-qty-count {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.cart__total {
+    background-color: #3b5d50;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.cart__close button {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+/* Optional: Add hover effect on buttons */
+
+.pro-qty-button:hover,
+.cart__close button:hover {
+    background-color: #3b5d50;
+}

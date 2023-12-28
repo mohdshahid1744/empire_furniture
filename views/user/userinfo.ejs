@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="/static/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="/static/tiny-slider.css" rel="stylesheet">
+		<link href="/static/style2.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+		<title>Empire furniture </title>
+
+
+        
+    
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+        <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="/home">Empire <span style="color: red;">Furniture</span></a>
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item ">
+							<a class="nav-link" href="/home">Home</a>
+						</li>
+						<li><a class="nav-link" href="/shop">Shop</a></li>
+						<li><a class="nav-link" href="/services">Services</a></li>
+						<li><a class="nav-link" href="/blog">Blog</a></li>
+						<li><a class="nav-link" href="/contact">Contact us</a></li>
+					</ul>
+
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li><a class="nav-link" href="/userinfo"><img src="/static/user.svg"></a></li>
+						<li><a class="nav-link" href="/cart"><img src="/static/cart.svg"></a></li>
+					</ul>
+                    <div class="mt-2">
+                        <form action="/logout" method="post" class="d-grid">
+                            <button type="submit" class="btn btn-warning" style="margin-left: 50px;">Logout</button>
+                        </form>
+                    </div>
+				</div>
+			</div>
+				
+		</nav>
+
+        <div class="hero" style="padding: 10px;">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-lg-5">
+                        <div class="intro-excerpt">
+                            <h1 class="text-white">User Details</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-7 mt-5 mb-4">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" onclick="window.location='/myorders'" class="btn btn-primary btn-sm mb-3 me-3">
+                                <img src="/static/order.png" alt="My Orders" class="me-2" style="width: 20px; height: 20px;"> My Orders
+                            </button>
+                            <button type="button" onclick="window.location='/wishlist'" class="btn btn-primary btn-sm mb-3 me-3">
+                                <img src="/static/wishlist.png" alt="Wishlist" class="me-2" style="width: 20px; height: 20px;"> Wishlist
+                            </button>
+                            <button type="button" onclick="window.location='/wallet'" class="btn btn-primary btn-sm mb-3 me-3" style="background-color: #3b5d50;" >
+                                <img src="/static/wallet.png" alt="Wallet" class="me-2" style="width: 20px; height: 20px;"> Wallet
+                                <div class="p-2 rounded" style="background-color: #3b5d50;">
+                                    <% if (wallet && wallet.wallet !== undefined && wallet.wallet !== null) { %>
+                                        <p class="mb-2" style="font-size: 15px; color: white;">Wallet Balance: ₹ <%= wallet.wallet %> </p>
+                                    <% } else { %>
+                                        <p class="mb-2" style="font-size: 15px; color: white;">Wallet data not available</p>
+                                    <% } %>
+                                    
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <h6 style="color: yellow;">Refer Your friends and get ₹100 cashback :  <%=userId.code%></h4>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="container-fluid" >
+            <div class="row justify-content-center align-items-start " style="margin-top: 20px; margin-bottom: 20px;">
+        
+                <div class="col-md-7 col-12" style="max-width: 700px;">
+                    <form id="userEditForm" class="bg-light p-4 rounded">
+                        <h2 class="text-center mb-4">User Edit</h2>
+                        <label for="editUsername" class="mb-2 font-weight-bold">Full name:</label>
+                        <p><%= userId.name %></p>
+                        <label for="editEmail" class="mb-2 font-weight-bold">Email:</label>
+                        <p><%= userId.email %></p>
+                        <button type="button" onclick="window.location='/edituserinfo'" class="btn btn-primary w-100 mt-3">Edit UserInfo</button>
+                    </form>
+                </div>
+
+                <div class="col-md-3" style="max-width: 700px; margin: 0 auto;">
+                    <form id="passwordChangeForm" class="bg-light p-4 rounded">
+                        <h2 class="text-center " style="font-size: 22px;margin-bottom: 35px;">Change Password</h2>
+                        <label for="newPassword" class="mb-2 font-weight-bold">Email:</label>
+                        <p><%= userId.email %></p>
+                        <label for="confirmNewPassword" class="mb-2 font-weight-bold">Password:</label>
+                        <p>*******</p>
+                        <button type="button" onclick="window.location='/changepassword'" class="btn btn-primary w-100 mt-3">Change Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+            <div class="container-fluid">
+                <form id="addressForm" class="col-md-8 col-lg-6 mt-4 bg-light p-4 rounded">
+                    <h2 class="text-center mb-4">Change or Set Address</h2>
+                    <label for="address" class="mb-2 font-weight-bold">Address:</label>
+            
+                    <div>
+                        <% if (userId.Address && userId.Address.length > 0) { %>
+                            <% userId.Address.forEach(function (address) { %>
+                                <div class="mb-3">
+                                    <h3><%= address.name %></h3>
+                                    <p><%= address.house %> <%= address.street %> <%= address.state %>,<%= address.city %>,<%= address.country %>,<%= address.pincode %></p>
+                                    <p><%= address.number %></p>
+                                    <a class="btn btn-danger" href="/deleteaddress?id=<%=address._id%>"
+                                        onclick="return confirm('Are You Sure ?')">DELETE</a>
+                                    <button type="button" onclick="window.location='/updateAddress/<%= address._id %>'" class="btn btn-dark btn-sm rounded-pill" style="font-size: 18px;">EDIT</button>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>No address available.</p>
+                        <% } %>
+            
+                        <button type="button" onclick="window.location='/editaddress'" class="btn btn-success btn-sm rounded-pill mt-3" onmouseover="this.style.backgroundColor='black'" onmouseout="this.style.backgroundColor='#3b5d50'" style="width: 100%; background-color: #3b5d50;">Add Address</button>
+                    </div>
+                </form>
+            </div> 
+
+       
+
+<!-- Start Footer Section -->
+<footer class="footer-section" style="margin-top: 110px;">
+    <div class="container relative">
+
+        <div class="sofa-img">
+            <img src="/static/sofa.png" alt="Image" class="img-fluid">
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="subscription-form">
+                    <h3 class="d-flex align-items-center"><span class="me-1"><img src="/static/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+                    <form action="#" class="row g-3">
+                        <div class="col-auto">
+                            <input type="text" class="form-control" placeholder="Enter your name">
+                        </div>
+                        <div class="col-auto">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary">
+                                <span class="fa fa-paper-plane"></span>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-5 mb-5">
+            <div class="col-lg-4">
+                <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Empire <span style="color: red;">Furniture</span></a></div>
+                <p class="mb-4">our products are crafted with exceptional materials, ensuring durability and longevity. We take pride in offering modern interior design solutions that not only enhance the aesthetics of any space but also provide utmost comfort and functionality. </p>
+
+                <ul class="list-unstyled custom-social">
+                    <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+                    <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+                    <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+                    <li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row links-wrap">
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <ul class="list-unstyled">
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <ul class="list-unstyled">
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Delivery</a></li>
+                            <li><a href="#">Payment methods</a></li>
+                            <li><a href="#">Return & Exchange</a></li>
+                        </ul>
+                    </div>
+
+                
+                </div>
+            </div>
+
+        </div>
+
+        <div class="border-top copyright">
+            <div class="row pt-4">
+                <div class="col-lg-6">
+                    <p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
+    </p>
+                </div>
+
+                <div class="col-lg-6 text-center text-lg-end">
+                    <ul class="list-unstyled d-inline-flex ms-auto">
+                        <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</footer>
+<!-- End Footer Section -->	
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/tiny-slider.js"></script>
+<script src="js/custom.js"></script>
+<script>
+    function editUser() {
+        alert("User details updated successfully!");
+    }
+
+    function changeAddress() {
+        alert("Address updated successfully!");
+    }
+
+    function resetPassword() {
+        alert("Password reset successfully!");
+    }
+</script>
+<script>
+    function editAddress() {
+       const name = document.getElementById('name').value;
+       const number = document.getElementById('number').value;
+       const house = document.getElementById('house').value;
+       const city = document.getElementById('city').value;
+       const state = document.getElementById('state').value;
+       const country = document.getElementById('country').value;
+       const pincode = document.getElementById('pincode').value;
+ 
+       const editedAddress = {
+          name,
+          number,
+          house,
+          city,
+          state,
+          country,
+          pincode
+       };
+ 
+       $.ajax({
+          type: 'POST',
+          url: '/editaddress', 
+          data: editedAddress,
+          success: function (response) {
+             window.location.href = '/userinfo';
+          },
+          error: function (error) {
+             console.error('Error submitting form:', error);
+             alert('An error occurred. Please try again.');
+          },
+       });
+    }
+ </script>
+ 
+
+</body>
+</html>

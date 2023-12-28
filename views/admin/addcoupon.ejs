@@ -1,0 +1,161 @@
+<%- include('../partials/dashhead') %>
+<%- include('../partials/head') %>
+
+
+<style>
+   
+
+body {
+font-family: 'Arial', sans-serif;
+background-color: #f4f4f4;
+}
+
+form {
+max-width: 400px;
+margin: 20px auto;
+background-color: #fff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+display: block;
+margin-bottom: 8px;
+font-weight: bold;
+}
+
+input {
+width: 100%;
+padding: 8px;
+margin-bottom: 16px;
+box-sizing: border-box;
+}
+
+button {
+background-color: #007bff;
+color: #fff;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #0056b3;
+}
+select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            appearance: none;
+            background-color: #3b5d50;
+            background-image: linear-gradient(45deg, transparent 50%, #007bff 50%),
+                              linear-gradient(135deg, #007bff 50%, transparent 50%);
+            background-position: calc(100% - 20px) calc(1em + 2px),
+                               calc(100% - 15px) calc(1em + 2px);
+            background-size: 8px 8px, 8px 8px; 
+            background-repeat: no-repeat;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            color: white;
+            font-weight: bold;
+        }
+
+        select:hover {
+            border-color: #007bff;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+</style>
+
+
+
+<form onsubmit="return validateForm()" action="/admin/addcoupon" method="post">
+    <p>
+        <label for="coupon">Coupon Applicable:</label>
+        <select id="couponApplicable" name="couponApplicable" required>
+            <option value="all">All</option>
+            <% if (category && category.length > 0) { %>
+                <% category.forEach(categories => { %>
+                    <option value="<%= categories._id %>"><%= categories.category %></option>
+                <% }) %>
+            <% } else { %>
+                <option value="default">Default Option</option>
+            <% } %>
+        </select>
+    </p>
+
+    <p>
+        <label for="Couponcode">Coupon Code</label>
+        <input type="text" name="couponcode" id="couponcode" required>
+    </p>
+
+    <p>
+        <label for="minimumprice">Minimum Price</label>
+        <input type="text" name="minimumprice" id="minimumprice" required>
+    </p>
+
+    <p>
+        <label for="discountprice">Discount Price</label>
+        <input type="text" name="discountprice" id="discountprice" required>
+    </p>
+
+    <p>
+        <label for="expirydate">Expiry Date</label>
+        <input type="date" name="expirydate" required>
+    </p>
+    <% if (typeof message !== 'undefined') { %>
+        <p style="color:red;margin-left: 45px;font-size: 12px;"><%= message%> </p>
+    <% } %>
+
+    <button type="submit" onclick="setCouponApplicable()">SUBMIT</button>
+</form>
+
+<script>
+    function validateForm() {
+        var minimumPriceInput = document.getElementById("minimumprice");
+        var discountPriceInput = document.getElementById("discountprice");
+        var CouponCode=document.getElementById('couponcode').value
+
+        var minimumPrice = parseFloat(minimumPriceInput.value);
+        var discountPrice = parseFloat(discountPriceInput.value);
+
+        if (isNaN(minimumPrice) || minimumPrice <= 0) {
+            alert("Please enter a valid Minimum Price");
+            return false;
+        }
+
+        if (isNaN(discountPrice) || discountPrice <= 0) {
+            alert("Please enter a valid Discount Price");
+            return false;
+        }
+        if(discountPrice>99){
+            alert("Discount percentage should be less than 100")
+            return false;
+        }
+        if(!CouponCode.trim()){
+            alert("Enter valid name")
+            return false;
+        }
+
+        return true;
+    }
+
+
+    function setCouponApplicable() {
+        var couponApplicableSelect = document.getElementById("couponApplicable");
+        var selectedValue = couponApplicableSelect.value;
+
+        if (selectedValue === "all") {
+            document.getElementById("couponApplicable").value = "all";
+        }
+    }
+</script>

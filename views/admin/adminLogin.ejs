@@ -1,0 +1,56 @@
+<%- include('../partials/head')  %>
+
+<style>
+  html,body{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  background: #3b5d50;
+}
+</style>
+	
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    admin
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+ 
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6"></div>
+      <div class="col-lg-3 col-md-3"></div>
+    </div>
+    <div class="canvas__open"><i class="fa fa-bars"></i></div>
+  </div>
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100" style="width: 900px;">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong">
+            <div class="card-body p-5 text-center">
+              <h3 class="mb-5">Admin Login</h3>
+              <form action="/admin" method="post">
+                <div class="form-outline mb-4">
+                  <input placeholder="Email" type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                </div>
+                <div class="form-outline mb-4">
+                  <input type="password" placeholder="Password" name="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                </div>
+                <button class="btn btn-secondary btn-lg btn-block" type="submit">Login</button>
+              </form>
+              <p></p>
+              <% if(typeof message !== 'undefined'){ %>
+              <p><%= message%> </p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <%- include('../partials/footer') %>

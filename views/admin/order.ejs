@@ -1,0 +1,88 @@
+<%- include('../partials/dashhead') %>
+<%- include('../partials/head') %>
+  <html>
+  <head>
+  </head>
+  <body style="overflow-x: hidden;background-color: #3b5d50 !important;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color: #ffffff;">
+    <nav aria-label="breadcrumb" style="background-color: #7ab7a0;border: 1px solid #dee2e6;border-radius: 5px;margin-bottom: 20px;">
+      <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+        <li class="breadcrumb-item text-sm" style="color: #6c757d;"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+        <li class="breadcrumb-item text-sm text-dark active" aria-current="page" style=" color: #495057;">dashboard</li>
+      </ol>
+      <h6 class="font-weight-bolder mb-0">Orders</h6>
+    </nav>
+
+    <div class="container-fluid ">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4" style="border-radius: 15px;overflow: hidden;box-shadow: 0 4px 6px rgba(183, 44, 44, 0.1); margin-bottom: 20px;">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2" style="background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;color: #fff;border: none;border-radius: 10px 10px 0 0;">
+              <div class="bg-gradient-secondary shadow-primary border-radius-lg pt-4 pb-3" style=" background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;">
+                <h6 class="text-white text-capitalize ps-3" style="text-transform: capitalize;">Pending Orders</h6>
+              </div>
+            </div>
+    
+            <% if (orders.length > 0) { %>
+            <div class="table-responsive">
+              <table class="table align-items-center mb-0" style=" border-radius: 10px;overflow: hidden;">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Serialno.</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">OrderId</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Amount</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Payment Method</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% orders.forEach((order, index) => { %>
+                    <% order.products.forEach((product, productIndex) => { %>
+                      <tr>
+                        <td style="border: 0;"><%= index + 1 %></td>
+                        <td style="border: 0;"><%= order._id %></td>
+                        <td style="border: 0;"><%= product.productPrice %></td>
+                        <td style="border: 0;"><%= product.quantity %></td>
+                        <td style="border: 0;"><%= order.total %></td>
+                        <td style="border: 0;"><%= order.date.toLocaleDateString() %></td>
+                        <td style="border: 0;"><%= order.paymentMethod %></td>
+                    <td style="border: 0;">
+                      <% if (!order.cancelled && !order.returned) { %>
+                      <form action="/admin/orders/cancel/<%= order._id %>" method="POST">
+                        <button class="btn btn-danger" type="submit">Cancel</button>
+                      </form>
+                      <% } else if(order.returned){ %>
+                      <span class="text-danger">Returned</span>
+                      <% } else {%>
+                        <span class="text-danger">Cancelled</span>
+                        <% } %>
+                      <% if (!order.cancelled && !order.returned) { %>
+                        <form action="/admin/orders/<%= order._id %>" method="POST">
+                          <button class="btn <%= order.status === 'Shipped' ? 'btn-success' : (order.status === 'Delivered' ? 'btn-success' : 'btn-primary') %>" type="submit" name="status" value="<%= order.status === 'Shipped' ? 'Delivered' : 'Shipped' %>">
+                            <% if (order.status === 'Shipped') { %>
+                              Ready to Deliver
+                            <% } else if (order.status === 'Delivered') { %>
+                              Delivered
+                            <% } else { %>
+                              Ready to Ship
+                            <% } %>
+                          </button>
+                        </form>
+                      <% } %>
+                    </td>
+                  </tr>
+                  <% }); %>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+            <% } else { %>
+            <p class="no-orders-message" style="  font-size: 18px;font-weight: bold;color: #6c757d;">You have no orders yet.</p>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    

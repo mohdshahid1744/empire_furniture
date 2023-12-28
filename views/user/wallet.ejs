@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="/static/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="/static/tiny-slider.css" rel="stylesheet">
+		<link href="/static/style2.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+		<title>Empire furniture </title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+    
+        main {
+            text-align: center;
+            padding: 20px;
+        }
+    
+        .wallet-balance,
+        .transaction-history {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    
+      
+    
+        .transaction-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #f8f8f8;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+    
+        .transaction-entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+    
+        .transaction-entry span {
+            flex: 1;
+            text-align: center;
+        }
+    
+        .transaction-entry span:first-child {
+            flex: 2;
+        }
+    
+        .transaction-entry.credit {
+            color: #2ecc71; 
+        }
+    
+        .transaction-entry.debit {
+            color: #e74c3c; 
+        }
+    
+        .transaction-entry span:last-child {
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .transaction-entry {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+    
+            .transaction-entry span {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+    
+    
+    
+    
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+                <a class="navbar-brand" href="/home">Empire <span style="color: red;">Furniture</span></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item ">
+							<a class="nav-link" href="/home">Home</a>
+						</li>
+						<li><a class="nav-link" href="/shop">Shop</a></li>
+					
+						<li><a class="nav-link" href="/services">Services</a></li>
+						<li><a class="nav-link" href="/blog">Blog</a></li>
+						<li><a class="nav-link" href="/contact">Contact us</a></li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<li><a class="nav-link" href="/userinfo"><img src="/static/user.svg"></a></li>
+						<li><a class="nav-link" href="/cart"><img src="/static/cart.svg"></a></li>
+					</ul>
+				</div>
+			</div>
+				
+		</nav>
+		<!-- End Header/Navigation -->
+
+		<!-- Start Hero Section -->
+		<div class="hero">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-5">
+						<div class="intro-excerpt">
+							<h1>Wallet Transaction</h1>
+						</div>
+					</div>
+					<div class="col-lg-7">
+						<form id="addToWalletForm">
+							<div class="form-group">
+								<label for="amount" style="color: white;">Enter Amount:</label>
+								<input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" required>
+							</div>
+							<div class="form-group">
+								<button type="button" class="btn btn-primary" id="addToWalletBtn" style="margin-top: 10px;background-color: #333;margin-bottom: 10px;">Add to Wallet</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- End Hero Section -->
+       
+        <main>
+            <div class="wallet-balance">
+                <h2>Your Wallet Balance</h2>
+                <% if (wallet && wallet.wallet !== null) { %>
+                    <p style="font-size: 24px; color: #01632a; margin: 10px 0;">₹ <%= wallet.wallet %></p>
+                <% } else { %>
+                    <p style="font-size: 24px; color: #01632a; margin: 10px 0;">Wallet not available</p>
+                <% } %>
+            </div>
+        
+            <div class="transaction-history">
+                <h2>Transaction History</h2>
+        
+                <% if (wallet && wallet.walletTransaction && wallet.walletTransaction.length > 0) { %>
+                    <% wallet.walletTransaction.forEach(transaction => { %>
+                        <div class="transaction-entry <%= transaction.type.toLowerCase() %>">
+                            <span><%= transaction.date.toISOString().split('T')[0] %></span>
+                            <span><%= transaction.type %></span>
+                            <% if (transaction.type.toLowerCase() === 'credit') { %>
+                                <span>₹ +<%= transaction.amount.toFixed(2) %></span>
+                            <% } else { %>
+                                <span>₹ -<%= transaction.amount.toFixed(2) %></span>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No transaction history available</p>
+                <% } %>
+            </div>
+        </main>
+        
+
+        <!-- Start Footer Section -->
+		<footer class="footer-section" style="margin-top: 110px;">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="/static/sofa.png" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="/static/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+					<div class="col-lg-4">
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Empire <span style="color: red;">Furniture</span></a></div>
+						<p class="mb-4">our products are crafted with exceptional materials, ensuring durability and longevity. We take pride in offering modern interior design solutions that not only enhance the aesthetics of any space but also provide utmost comfort and functionality. </p>
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Delivery</a></li>
+									<li><a href="#">Payment methods</a></li>
+									<li><a href="#">Return & Exchange</a></li>
+								</ul>
+							</div>
+
+						
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
+            </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/tiny-slider.js"></script>
+		<script src="js/custom.js"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+       <!-- Include SweetAlert library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.getElementById('addToWalletBtn').addEventListener('click', async () => {
+        const amount = document.getElementById('amount').value;
+
+        try {
+            const response = await fetch('/razorpaywallet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ amount: amount }),
+            });
+
+            const data = await response.json();
+            console.log('Amount:', amount);
+            console.log('Server Response:', data);
+
+            if (data.orderId) {
+                const options = {
+                    key: 'rzp_test_PqbOQTF6emaXwN',
+                    amount: amount * 100,
+                    currency: 'INR',
+                    name: 'Your App Name',
+                    description: 'Add to Wallet',
+                    order_id: data.orderId,
+                    handler: function (response) {
+                        console.log('Razorpay Payment ID:', response.razorpay_payment_id);
+                        console.log('Razorpay Order ID:', response.razorpay_order_id);
+                        console.log('Razorpay Signature:', response.razorpay_signature);
+
+                        // Send the payment details to the server
+                        fetch('/razorpaycallback', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature,
+                            }),
+                        })
+                        .then((callbackResponse) => callbackResponse.text())
+                        .then((callbackData) => {
+                            console.log('Server Callback Response:', callbackData);
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Payment Successful!',
+                                text: `₹ ${amount} is added success fully to the wallet`,
+                            });
+                            setTimeout(()=>{
+                window.location.href='/userinfo'
+            },2000)
+                        })
+                        .catch((callbackError) => {
+                            console.error('Error processing server callback:', callbackError);
+                        });
+                    },
+                    prefill: {
+                        email: 'user@example.com',
+                        contact: '9876543210',
+                    },
+                    theme: {
+                        color: '#F37254',
+                    },
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+
+            } else {
+                console.error('Error creating Razorpay order:', data.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+</script>
+
+            
+		
+	</body>
+
+</html>
