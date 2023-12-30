@@ -1,0 +1,20 @@
+.center{text-align:center}
+#space-invaders {
+  margin: 0 auto;
+  display: block;
+  background: white
+}
+.game-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px; 
+  margin: 0 auto;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%; 
+  border: 1px solid #000; 
+}

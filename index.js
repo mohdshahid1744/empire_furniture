@@ -35,7 +35,9 @@ mongoose
     .then(() => console.log('DB Connected'))
     .catch(err => console.log(err))
 
-
+app.get('*',(req,res)=>{
+    res.render('user/error')
+})
 app.listen(3000,function(){
     console.log("server runnng");
 })

@@ -30,7 +30,7 @@ const securepassword = async(password)=>{
       const passwordHash =   await bcrypt.hash(password,10)
       return passwordHash;
     }catch(error){
-        console.log(error.message)
+        res.render('user/servererror');
     }
 }
 
@@ -40,7 +40,7 @@ const loadRegister = async(req,res)=>{
         res.render('user/signup')
 
     } catch(error){
-        console.log(error.message);
+        res.render('user/servererror');
     }
 }
 
@@ -73,9 +73,12 @@ if (name !== trimmedName) {
             return res.render('user/signup', { message: 'Invalid email format.' });
         }
 
-        if (password.length < 6) {
-            return res.render('user/signup', { message: 'Password must be at least 6 characters long.' });
-        }
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+if (password.length < 6 || !passwordRegex.test(password)) {
+    return res.render('user/signup', { message: 'Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.' });
+}
+
 
         if(mno.length !== 10){
             return res.render('user/signup',{message:'mobile number is not valid'})
@@ -123,7 +126,7 @@ if (name !== trimmedName) {
             console.log(error.message);
         }
     } catch (error) {
-        console.log(error.message);
+        res.render('user/servererror');
     }
 };
 
@@ -135,7 +138,9 @@ if (name !== trimmedName) {
 const showOtp = async (req, res) => {
     try {
           res.render('user/otp');
-    }catch (error) {}
+    }catch (error) {
+        res.render('user/servererror');
+    }
 };
 
 
@@ -173,7 +178,7 @@ async function sendOtpMail(email, otp) {
         await transporter.sendMail(mailOptions);
         console.log("OTP email sent successfully to", email);
     } catch (error) {
-        console.log("Error sending OTP email:", error);
+        res.render('user/servererror');
     }
 }
 
@@ -237,7 +242,7 @@ const verifyOtp = async (req, res) => {
                 res.render('user/login', { banners });
             } catch (error) {
                 console.log(error.message);
-                res.render('user/otp', { message: 'Error saving user data.' });
+                res.render('user/servererror');
             }
         } else {
             res.render('user/otp', { message: 'Invalid OTP, please try again.' });
@@ -262,7 +267,7 @@ const resendOtp = async (req, res) => {
         res.json({ message: 'New OTP sent successfully',otp:newOtp });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'Failed to generate and send OTP' });
+        res.render('user/servererror');
     }
 };
 
@@ -280,6 +285,7 @@ const loadlogin = async(req,res)=>{
 
     } catch(error){
         console.log(error.message);
+        res.render('user/servererror');
     }
 }
 
@@ -314,7 +320,7 @@ const userValid = async (req, res) => {
         }
     } catch (error) {
         console.log("Error in userValid:", error.message);
-        res.render('user/login', { message: 'An error occurred during login' });
+        res.render('user/servererror');
     }
 };
 
@@ -326,7 +332,7 @@ const loadHome = async (req, res) => {
         const user = await User.findById(req.user)
         res.render('user/home', { user, error: null,banners,userId  })
     } catch (error) {
-        res.render('user/home', { error: 'Somthing went wrong', user: null})
+        res.render('user/servererror');
     }
 }
 
@@ -340,7 +346,7 @@ const loadshop = async (req, res) => {
         res.render("user/shop", { products, productImages, categories, userId });
     } catch (error) {
         console.error(error);
-        res.status(500).send("An error occurred while loading the shop.");
+        res.render('user/servererror');
     }
 }
 const shopdetails = async (req, res) => {
@@ -360,7 +366,7 @@ const shopdetails = async (req, res) => {
         res.render("user/shopdetails", { products, productImages, userId, category });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.render('user/servererror');
     }
 };
 
@@ -385,7 +391,7 @@ const shopdetails = async (req, res) => {
         return res.json(categoryDetails);
     } catch (err) {
         console.error('Error fetching category details:', err);
-        return res.status(500).json({ error: 'Internal server error' });
+        res.render('user/servererror');
     }
 };
 const loadforgetpassword = async (req, res) => {
@@ -393,7 +399,7 @@ const loadforgetpassword = async (req, res) => {
         const user = await User.findById(req.user)
         res.render('user/forgetPassword', { user, error: null })
     } catch (error) {
-        res.render('user/forgetPassword', { error: 'Somthing went wrong', user: null })
+        res.render('user/servererror');
     }
 }
 
@@ -415,7 +421,7 @@ const forgotpassword=async(req,res)=>{
     console.log(otp);
     res.redirect(`/resetpassword/${email}`);
     }catch(error){
-        console.error("Error reseting password");
+        res.render('user/servererror');
     }
 }
 
@@ -425,7 +431,7 @@ const loadresetpassword = async (req, res) => {
         const {email}=req.params
         res.render('user/resetpassword', { user, error: null,email})
     } catch (error) {
-        res.render('user/resetpassword', { error: 'Somthing went wrong', user: null })
+        res.render('user/servererror');
     }
 }
 
@@ -451,7 +457,7 @@ const resetpassword = async (req, res) => {
     }
       } catch (error) {
     console.error('Error in resetPassword:', error);
-    res.status(500).send('Internal Server Error');
+    res.render('user/servererror');
      }
     };
 
@@ -476,7 +482,7 @@ const searchProducts = async (req, res) => {
         res.render('user/search', { searchResults, query: trimmedQuery,userId });
     } catch (error) {
         console.error('Error during search:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.render('user/servererror');
     }
 };
 
@@ -487,7 +493,7 @@ const loadcontact = async (req, res) => {
         const user = await User.findById(req.user)
         res.render('user/contact', { user, error: null,userId })
     } catch (error) {
-        res.render('user/contact', { error: 'Somthing went wrong', user: null })
+        res.render('user/servererror');
     }
 }
 const loadblog = async (req, res) => {
@@ -496,7 +502,7 @@ const loadblog = async (req, res) => {
         const user = await User.findById(req.user)
         res.render('user/blog', { user, error: null,userId })
     } catch (error) {
-        res.render('user/blog', { error: 'Somthing went wrong', user: null })
+        res.render('user/servererror');
     }
 }
 const loadservices = async (req, res) => {
@@ -505,7 +511,7 @@ const loadservices = async (req, res) => {
         const user = await User.findById(req.user)
         res.render('user/services', { user, error: null ,userId})
     } catch (error) {
-        res.render('user/services', { error: 'Somthing went wrong', user: null })
+        res.render('user/servererror');
     }
 }
 
@@ -545,7 +551,7 @@ const shoppingPage = async (req, res) => {
         res.render('user/cart', { cartItems, totalSum, errorMessage });
     } catch (error) {
         console.error('An error occurred:', error);
-        res.status(500).json({ error: 'An error occurred while processing the request' });
+        res.render('user/servererror');
     }
 };
 
@@ -565,7 +571,7 @@ const shoppingPage = async (req, res) => {
         res.json(sortProduct);
     } catch (error) {
         console.error("Error while sorting");
-        res.status(500).json({ error: 'Internal server error' });
+        res.render('user/servererror');
     }
 };
 
@@ -614,7 +620,7 @@ console.log("req.body",req.body);
         res.json({ totalSum });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.render('user/servererror');
     }
 };
 
@@ -646,7 +652,7 @@ const shoppingcart = async (req, res) => {
         }
     } catch (error) {
         console.error("An error occurred:", error);
-        res.status(500).json({ error: "An error occurred while processing your request." });
+        res.render('user/servererror');
     }
 };
 
@@ -666,7 +672,7 @@ const deleteCart = async (req, res) => {
         res.json({ success: true });
     } catch (err) {
         console.error('Error removing item:', err);
-        return res.status(500).json({ success: false, error: 'An error occurred while removing the item.' });
+        res.render('user/servererror');
     }
 };
 const loadcheckout = async (req, res) => {
@@ -719,7 +725,7 @@ const loadcheckout = async (req, res) => {
         res.render('user/checkout', { user, cartItems, totalSum, address ,coupons,category});
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.render('user/servererror');
     }
 };
 
@@ -767,7 +773,7 @@ const loadcheckout = async (req, res) => {
             return res.render('user/checkout', { message: 'Address added successfully', address: updatedUser.Address, cartItems, totalSum ,coupons});
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'Internal server error' });
+            res.render('user/servererror');
         }
     }
     
@@ -791,7 +797,7 @@ const loadcheckout = async (req, res) => {
             res.render('user/userinfo', { userId: user, address, wallet });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'Internal server error' });
+            res.render('user/servererror');
         }
     };
     
@@ -805,7 +811,7 @@ const loadcheckout = async (req, res) => {
             }
             res.render('user/edituserinfo', { userId: user, error: null })
         } catch (error) {
-            res.render('user/edituserinfo', { error: 'Somthing went wrong', user: null })
+            res.render('user/servererror');
         }
     }
 
@@ -828,7 +834,7 @@ const loadcheckout = async (req, res) => {
             
         } catch (error) {
             console.error('Error updating user:', error);
-            res.status(500).send('Internal Server Error');
+            res.render('user/servererror');
         }
     };
 
@@ -842,7 +848,7 @@ const loadcheckout = async (req, res) => {
             }
             res.render('user/changepassword', { userId: user, error: null })
         } catch (error) {
-            res.render('user/changepassword', { error: 'Somthing went wrong', user: null })
+            res.render('user/servererror');
         }
     }
 
@@ -865,7 +871,7 @@ const loadcheckout = async (req, res) => {
             res.render('user/userinfo', { userId: user, error: null });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'Internal server error' });
+            res.render('user/servererror');
         }
     };
 
@@ -879,7 +885,7 @@ const loadcheckout = async (req, res) => {
             }
             res.render('user/editaddress', { userId: user, error: null })
         } catch (error) {
-            res.render('user/editaddress', { error: 'Somthing went wrong', user: null })
+            res.render('user/servererror');
         }
     }
     const editaddress = async (req, res) => {
@@ -913,7 +919,7 @@ const loadcheckout = async (req, res) => {
             res.redirect('/userinfo');
         } catch (error) {
             console.error('Error updating user address:', error);
-            res.status(500).send('Internal Server Error');
+            res.render('user/servererror');
         }
     };
     const deleteAddress = async (req, res) => {
@@ -933,7 +939,7 @@ const loadcheckout = async (req, res) => {
             }
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'An error occurred while deleting the address' });
+            res.render('user/servererror');
         }
     }
     
@@ -957,7 +963,7 @@ const loadcheckout = async (req, res) => {
     
             res.render('user/updateAddress', { address});
         } catch (error) {
-            res.status(500).send(error.message);
+            res.render('user/servererror');
         }
     };
     
@@ -992,7 +998,7 @@ const loadcheckout = async (req, res) => {
                 res.redirect('/userinfo');
             } catch (error) {
                 console.error('Error updating address:', error);
-                res.status(500).send('Internal Server Error');
+                res.render('user/servererror');
             }
         };
         
@@ -1028,6 +1034,7 @@ const loadcheckout = async (req, res) => {
         }
         catch(err){
             console.log(err)
+            res.render('user/servererror');
         }
     }
 
@@ -1106,7 +1113,7 @@ const loadcheckout = async (req, res) => {
             }
         } catch (error) {
             console.error(error);
-            res.status(500).send('Error placing the order');
+            res.render('user/servererror');
         }
     };
     
@@ -1180,7 +1187,7 @@ const loadcheckout = async (req, res) => {
             
         }catch(error){
             console.error(error);
-            res.status(500).send('Error placing the order');
+            res.render('user/servererror');
         }
     }
 
@@ -1256,7 +1263,7 @@ const loadcheckout = async (req, res) => {
             }
         } catch (error) {
             console.error('Error:', error);
-            res.status(500).json({ success: false, message: 'Internal server error' });
+            res.render('user/servererror');
         }
     };
     
@@ -1307,7 +1314,7 @@ const loadcheckout = async (req, res) => {
             res.json({ success: true, message: 'Order returned successfully', returnedOrder: order });
         } catch (error) {
             console.error('Error:', error);
-            res.status(500).json({ success: false, message: 'Internal server error' });
+            res.render('user/servererror');
         }
     };
 
@@ -1406,7 +1413,7 @@ const loadcheckout = async (req, res) => {
         res.json({ orderId: razorpayOrder.id, razorpayOrder, amount: totalAmount });
     } catch (error) {
         console.error('Error in createOrder function:', error);
-        res.status(500).json({ error: `Error creating Razorpay order: ${error.message}` });
+        res.render('user/servererror');
     }
 };
     
@@ -1429,7 +1436,7 @@ const loadcheckout = async (req, res) => {
         res.json({ orderId: order.id, amount: order.amount });
     } catch (error) {
         console.error('Error creating Razorpay order:', error);
-        res.status(500).json({ error: 'Error creating Razorpay order' });
+        res.render('user/servererror');
     }
 };
 
@@ -1475,7 +1482,7 @@ const successWallet = async (req, res) => {
         }
     } catch (error) {
         console.error('Error processing Razorpay callback:', error);
-        res.status(500).send('Error processing Razorpay callback');
+        res.render('user/servererror');
     }
 };
 
@@ -1500,7 +1507,7 @@ const successWallet = async (req, res) => {
             res.json({ totalAmount });
         } catch (error) {
             console.error('Error in totalAmount function:', error);
-            res.status(500).json({ error: 'Internal server error' });
+            res.render('user/servererror');
         }
     };
     
@@ -1558,7 +1565,7 @@ const successWallet = async (req, res) => {
     
         } catch (error) {
             console.error('Error applying coupon:', error);
-            res.status(500).json({ error: 'Internal server error' });
+            res.render('user/servererror');
         }
     };
     
@@ -1575,7 +1582,7 @@ const successWallet = async (req, res) => {
             }
         } catch (error) {
             console.error('Error deleting coupon:', error);
-            res.status(500).json({ error: 'Internal server error on deleteCoupon' });
+            res.render('user/servererror');
         }
     }
     
@@ -1584,7 +1591,7 @@ const successWallet = async (req, res) => {
             const user = await User.findById(req.user)
             res.render('user/thankyou', { user, error: null })
         } catch (error) {
-            res.render('user/thankyou', { error: 'Somthing went wrong', user: null })
+            res.render('user/servererror');
         }
     }
     const loadWallet = async (req, res) => {
@@ -1599,7 +1606,7 @@ const successWallet = async (req, res) => {
             res.render('user/wallet', { error: null, wallet });
         } catch (error) {
             console.error('Error:', error);
-            res.render('user/wallet', { error: 'Something went wrong', wallet: null });
+            res.render('user/servererror');
         }
     };
     

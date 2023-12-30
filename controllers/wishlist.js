@@ -12,7 +12,7 @@ const loadwishlist=async(req,res)=>{
         console.log("SD",wishlistitem);
         res.render('user/wishlist', {  error: null,wishlistitem })
     } catch (error) {
-        res.render('user/wishlist', { error: 'Somthing went wrong', user: null })
+        res.render('user/servererror');
     }
 }
 const addwishlist = async (req, res) => {
@@ -48,7 +48,7 @@ const addwishlist = async (req, res) => {
 
     } catch (error) {
         console.error('Error adding product to wishlist:', error);
-        res.status(500).json({ message: 'Internal server error.' });
+        res.render('user/servererror');
     }
 }
 
@@ -63,7 +63,7 @@ const removeFromWishlist = async (req, res) => {
         res.status(200).json({ message: 'Product removed from wishlist successfully' });
     } catch (error) {
         console.error("An error occurred:", error);
-        res.status(500).json({ error: "An error occurred while processing your request." });
+        res.render('user/servererror');
     }
 };
 

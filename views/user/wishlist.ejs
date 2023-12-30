@@ -96,20 +96,20 @@
        
 @media (max-width: 767px) {
         .wishlist-item {
-            width: 100%; /* Make the item width 100% on small screens */
+            width: 100%; 
             display: flex;
             flex-direction: column;
         }
 
         .product-thumbnail {
-            height: 150px; /* Adjust the height of the image container */
+            height: 150px;
         }
 
         .add-cart,
         .out-of-stock-btn,
         .deleteItemButton {
-            width: 100%; /* Make the buttons width 100% on small screens */
-            margin-bottom: 10px; /* Adjust the margin of the buttons */
+            width: 100%; 
+            margin-bottom: 10px; 
         }
     }
         </style>
@@ -155,37 +155,42 @@
         <h2>Your Wishlist</h2>
     </div>
 
-    <div class="wishlist-items">
-        <% wishlistitem.forEach(item => { %>
-            <div class="wishlist-item" style="margin-bottom: 20px; width: 30%;">
-                <div class="product-thumbnail">
-                    <a href="./shopdetails?id=<%= item.ProductId._id %>">
-                        <img src="/static/<%= item.ProductId.productImage[0].filename %>" alt="" style="width: 100%; height: 300px; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="product-details">
-                    <h2 class="h5 text-black"><%= item.ProductId.productName %></h2>
-                    <p>Price: ₹<%= item.ProductId.productPrice %></p>
-                    <div class="d-flex flex-column flex-md-row align-items-md-center">
-                        <% if (item.ProductId.productStock > 0) { %>
-                            <a class="add-cart" value="pr" data-product-id="<%= item.ProductId._id %>" style="background-color: green !important; cursor: pointer; margin-bottom: 10px;">+ Add to Cart</a>
-                        <% } else { %>
-                            <button class="out-of-stock-btn" style="background-color: #ccc; color: #555; cursor: not-allowed;  padding: 8px 16px; border: 1px solid #aaa; border-radius: 4px;" disabled>
-                                Out of Stock
-                            </button>
-                        <% } %>
-                        <div class="cart__close ms-md-1">
-                            <button class="deleteItemButton" onclick="window.location='/wishlist'" data-item-id="<%= item._id %>" style="height: 50px; width: 110px; position: relative;">
-                                <img src="/static/delete.png" alt="" style="position: absolute; top: 50%; transform: translateY(-50%); left: 10px; height: 15px; width: 15px;">
-                                Remove
-                            </button>
+    <div class="container-lg"> 
+        <div class="row wishlist-items" >
+            <% wishlistitem.forEach(item => { %>
+                <div class="col-md-4 col-lg-3 mb-4"> 
+                    <div class="wishlist-item" style="width: 100%;">
+                        <div class="product-thumbnail">
+                            <a href="./shopdetails?id=<%= item.ProductId._id %>">
+                                <img src="/static/<%= item.ProductId.productImage[0].filename %>" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="product-details">
+                            <h2 class="h5" style="color: rgb(157, 157, 4);"><%= item.ProductId.productName %></h2>
+                            <p>Price: ₹<%= item.ProductId.productPrice %></p>
+                            <div class="d-flex flex-column flex-md-row align-items-md-center">
+                                <% if (item.ProductId.productStock > 0) { %>
+                                    <a class="add-cart btn btn-success" value="pr" data-product-id="<%= item.ProductId._id %>">+ Add to Cart</a>
+                                <% } else { %>
+                                    <button class="out-of-stock-btn btn btn-secondary" disabled>
+                                        Out of Stock
+                                    </button>
+                                <% } %>
+                                <div class="cart__close ms-md-1" style="margin-top: 10px;">
+                                    <button class="deleteItemButton btn btn-danger" onclick="window.location='/wishlist'" data-item-id="<%= item._id %>">
+                                        <img src="/static/delete.png" alt="" style="height: 15px; width: 15px;">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <% }); %>
+            <% }); %>
+        </div>
     </div>
-</div>
+    
+    </div>
 
         
 		<!-- Start Footer Section -->
@@ -313,11 +318,9 @@
                         const wishlistItem = this.closest('.wishlist-item');
                         wishlistItem.parentNode.removeChild(wishlistItem);
 
-                        // Reload the page
                         console.log('Reloading the page...');
                         location.reload();
                     } else {
-                        // Product is already in the wishlist, show SweetAlert
                         Swal.fire({
                             icon: 'info',
                             title: 'Product already in wishlist',
