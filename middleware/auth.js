@@ -1,3 +1,4 @@
+const {User} = require('../models/userModel');
 const isLogedout = (req, res, next) => {
     if (!req.session.user) {
        next()
@@ -6,9 +7,9 @@ const isLogedout = (req, res, next) => {
     }
 }
 
-const isLogged = (req, res, next) => {
-    if (req.session.user) {
-        req.user = req.session.user
+const isLogged = async (req, res, next) => {
+    const user= await User.findOne({_id:req.session.user})
+    if (user&&user.is_blocked===false) {
         next()
     } else {
         res.redirect('/login')

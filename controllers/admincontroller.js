@@ -106,15 +106,7 @@ const blockUser = async (req, res) => {
             user.is_blocked = !user.is_blocked;
             await user.save();
 
-            if (user.is_blocked) {
-                req.session.destroy((err) => {
-                    if (err) {
-                    console.error('Error destroying session:', err);
-                } else {
-                    console.log('Session destroyed successfully');
-                }
-                });
-            }
+           
        
         res.redirect("/admin/users");
     } catch (error) {

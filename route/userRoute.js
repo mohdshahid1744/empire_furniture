@@ -7,17 +7,17 @@ const wishlistItems=require('../controllers/wishlist')
 const { isLogedout, isLogged } = require('../middleware/auth')
 
  
-user_route.get('/signup', isLogedout, userController.loadRegister)
+user_route.get('/signup',  userController.loadRegister)
 user_route.post('/signup', userController.insertUser)
 
 
-user_route.get('/showOtp/:userID/:otp', isLogedout, userController.showOtp);
-user_route.post('/resendOtp',isLogedout,userController.resendOtp)
-user_route.post('/verify-otp', isLogedout, userController.verifyOtp)
+user_route.get('/showOtp/:userID/:otp',  userController.showOtp);
+user_route.post('/resendOtp',userController.resendOtp)
+user_route.post('/verify-otp',  userController.verifyOtp)
  
-user_route.get('/login', isLogedout, userController.loadlogin)
+user_route.get('/login', userController.loadlogin)
 
-user_route.post('/login', isLogedout, userController.userValid)
+user_route.post('/login', userController.userValid)
 
 user_route.get('/forgotpassword', isLogedout, userController.loadforgetpassword)
 user_route.post('/forgotpassword', isLogedout, userController.forgotpassword);

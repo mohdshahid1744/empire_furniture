@@ -23,66 +23,66 @@
             </div>
     
             <% if (orders.length > 0) { %>
-            <div class="table-responsive">
-              <table class="table align-items-center mb-0" style=" border-radius: 10px;overflow: hidden;">
-                <thead>
-                  <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Serialno.</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">OrderId</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Amount</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Payment Method</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% orders.forEach((order, index) => { %>
-                    <% order.products.forEach((product, productIndex) => { %>
-                      <tr>
-                        <td style="border: 0;"><%= index + 1 %></td>
-                        <td style="border: 0;"><%= order._id %></td>
-                        <td style="border: 0;"><%= product.productPrice %></td>
-                        <td style="border: 0;"><%= product.quantity %></td>
-                        <td style="border: 0;"><%= order.total %></td>
-                        <td style="border: 0;"><%= order.date.toLocaleDateString() %></td>
-                        <td style="border: 0;"><%= order.paymentMethod %></td>
-                    <td style="border: 0;">
-                      <% if (!order.cancelled && !order.returned) { %>
-                      <form action="/admin/orders/cancel/<%= order._id %>" method="POST">
-                        <button class="btn btn-danger" type="submit">Cancel</button>
-                      </form>
-                      <% } else if(order.returned){ %>
-                      <span class="text-danger">Returned</span>
-                      <% } else {%>
-                        <span class="text-danger">Cancelled</span>
-                        <% } %>
-                      <% if (!order.cancelled && !order.returned) { %>
-                        <form action="/admin/orders/<%= order._id %>" method="POST">
-                          <button class="btn <%= order.status === 'Shipped' ? 'btn-success' : (order.status === 'Delivered' ? 'btn-success' : 'btn-primary') %>" type="submit" name="status" value="<%= order.status === 'Shipped' ? 'Delivered' : 'Shipped' %>">
-                            <% if (order.status === 'Shipped') { %>
-                              Ready to Deliver
-                            <% } else if (order.status === 'Delivered') { %>
-                              Delivered
-                            <% } else { %>
-                              Ready to Ship
-                            <% } %>
-                          </button>
-                        </form>
-                      <% } %>
-                    </td>
-                  </tr>
-                  <% }); %>
-                  <% }); %>
-                </tbody>
-              </table>
-            </div>
-            <% } else { %>
-            <p class="no-orders-message" style="  font-size: 18px;font-weight: bold;color: #6c757d;">You have no orders yet.</p>
-            <% } %>
-          </div>
-        </div>
-      </div>
-    </div>
-    
+              <div class="table-responsive">
+                  <table class="table align-items-center mb-0" style="border-radius: 10px; max-width: 100%;">
+                      <thead>
+                          <tr>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Order</th>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Details</th>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <% orders.forEach((order, index) => { %>
+                              <% order.products.forEach((product, productIndex) => { %>
+                                  <tr>
+                                      <td>
+                                          <div>
+
+                                              <span class="font-weight-bold">Order Id:</span> <%= order._id %><br>
+                                              <span class="font-weight-bold">Product Name:</span> <%= product.productName %><br>
+                                              <span class="font-weight-bold">Date:</span> <%= order.date.toLocaleDateString() %><br>
+                                              <span class="font-weight-bold">Payment Method:</span> <%= order.paymentMethod %>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <div>
+                                              <span class="font-weight-bold">Product Price:</span> <%= product.productPrice %><br>
+                                              <span class="font-weight-bold">Quantity:</span> <%= product.quantity %><br>
+                                              <span class="font-weight-bold">Total Amount:</span> <%= order.total %>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          <% if (!order.cancelled && !order.returned) { %>
+                                              <form action="/admin/orders/cancel/<%= order._id %>" method="POST">
+                                                  <button class="btn btn-danger btn-sm" type="submit">Cancel</button>
+                                              </form>
+                                          <% } else if (order.returned) { %>
+                                              <span class="text-danger">Returned</span>
+                                          <% } else { %>
+                                              <span class="text-danger">Cancelled</span>
+                                          <% } %>
+                                          <% if (!order.cancelled && !order.returned) { %>
+                                              <form action="/admin/orders/<%= order._id %>" method="POST">
+                                                  <button class="btn <%= order.status === 'Shipped' ? 'btn-success' : (order.status === 'Delivered' ? 'btn-success' : 'btn-primary') %> btn-sm" type="submit" name="status" value="<%= order.status === 'Shipped' ? 'Delivered' : 'Shipped' %>">
+                                                      <% if (order.status === 'Shipped') { %>
+                                                          Ready to Deliver
+                                                      <% } else if (order.status === 'Delivered') { %>
+                                                          Delivered
+                                                      <% } else { %>
+                                                          Ready to Ship
+                                                      <% } %>
+                                                  </button>
+                                              </form>
+                                          <% } %>
+                                      </td>
+                                  </tr>
+                              <% }); %>
+                          <% }); %>
+                      </tbody>
+                  </table>
+              </div>
+          <% } else { %>
+              <p class="no-orders-message" style="font-size: 18px; font-weight: bold; color: #6c757d;">You have no orders yet.</p>
+          <% } %>
+          
