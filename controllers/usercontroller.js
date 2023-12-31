@@ -541,7 +541,7 @@ const shoppingPage = async (req, res) => {
         cartItems.forEach((item) => {
             totalSum += item.ProductId.offerPrice * item.Quantity;
         });
-
+        totalSum = totalSum.toFixed(1);
         let errorMessage = '';
 
         if (cartItems.length === 0) {
@@ -616,6 +616,7 @@ console.log("req.body",req.body);
         cartItems.forEach((item) => {
             totalSum += item.ProductId.offerPrice * item.Quantity;
         });
+        totalSum = totalSum.toFixed(1);
         console.log(totalSum);
         res.json({ totalSum });
     } catch (error) {
