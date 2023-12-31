@@ -94,12 +94,12 @@
                                 <img src="/static/wallet.png" alt="Wallet" class="me-2" style="width: 20px; height: 20px;"> Wallet
                                 <div class="p-2 rounded" style="background-color: #3b5d50;">
                                     <% if (wallet && wallet.wallet !== undefined && wallet.wallet !== null) { %>
-                                        <p class="mb-2" style="font-size: 12px; color: white;">Balance: ₹ <%= wallet.wallet %> </p>
+                                        <p class="mb-2" style="font-size: 12px; color: white;">Balance: ₹ <%= wallet.wallet.toFixed(1) %> </p>
                                     <% } else { %>
-                                        <p class="mb-2" style="font-size: 12px; color: white;">₹ 0</p>
+                                        <p class="mb-2" style="font-size: 12px; color: white;">₹ 0.0</p>
                                     <% } %>
-                                    
                                 </div>
+                                
                             </button>
                         </div>
                     </div>
