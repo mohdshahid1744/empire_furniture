@@ -316,15 +316,9 @@
                         wishlistItem.parentNode.removeChild(wishlistItem);
 
                         console.log('Reloading the page...');
-                        location.reload();
+                        
                     } else {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Product already in wishlist',
-                            text: 'You have already added this product to your wishlist.',
-                            confirmButtonText: 'OK',
-                            confirmButtonColor: '#3085d6',
-                        });
+                        location.reload();
                     }
                 })
                 .catch(error => {
@@ -404,6 +398,9 @@
           
             
         </script>
+      
+    
+        
 
 		
 		
