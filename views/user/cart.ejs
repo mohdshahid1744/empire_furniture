@@ -118,7 +118,9 @@
                                                 <input class="pro-qty-count" id="<%= item.ProductId._id %>" min="1" max="<%= item.ProductId.productStock %>" value="<%= Math.min(item.Quantity, item.ProductId.productStock) %>" readonly>
                                                 <button class="pro-qty-button" onclick="changeQuantity('<%= item.ProductId._id %>', 1)"> + </button>
                                             </div>
-                                            <p>Total: ₹<%= item.ProductId.offerPrice * item.Quantity %></p>
+                                            <p id="total_<%= item.ProductId._id %>">Total: ₹<%= (item.ProductId.offerPrice * item.Quantity).toFixed(1) %></p>
+
+
                                             <button class="deleteItemButton btn btn-link" data-item-id="<%= item._id %>" style="background-color: rgb(152, 9, 9); text-decoration: none;">X</button>
 
                                         </div>
@@ -128,7 +130,9 @@
                         </div>
         
                         <div class="text-center mt-4">
-                            <h4>Total: ₹<%= totalSum %></h4>
+                            
+                                <h3>Total <span id="totalvalue">₹<span id="displayTotal"><%= totalSum %></span></span></h3>
+                            
                         </div>
                     </div>
                 </div>
@@ -159,7 +163,7 @@
                 <div class="row mb-3">
                   <div class="col-md-6">
                     <span class="text-black">Subtotal</span>
-                    <strong class="text-black">₹<%= totalSum %></strong>
+                    <strong class="text-black"><strong class="text-black"><span id="totalvalue">₹<span id="displayTotal"><%= totalSum %></span></span></strong></strong>
                   </div>
                   <div class="col-md-6 text-right">
                     
@@ -168,7 +172,7 @@
                 <div class="row mb-5">
                   <div class="col-md-6">
                     <span class="text-black">Total</span>
-                    <strong class="text-black">₹<%= totalSum %></strong>
+                    <strong class="text-black"><strong class="text-black"><span id="totalvalue">₹<span id="cartTotal"><%= totalSum %></span></span></strong></strong>
                   </div>
                   <div class="col-md-6 text-right">
                    
@@ -299,19 +303,23 @@
         
         
        
-function changeQuantity(productId, increment) {
+        function changeQuantity(productId, increment) {
     var inputElement = document.getElementById(productId);
     var currentValue = parseInt(inputElement.value);
     var newValue = currentValue + increment;
     var max = parseInt(inputElement.getAttribute("max"));
-    newValue = Math.min(newValue, max);
 
     if (newValue >= 1 && newValue <= max) {
         inputElement.value = newValue;
 
         if (newValue === max) {
-            alert("Product stock is reached.");
+            Swal.fire({
+                icon: 'info',
+                title: 'Product stock reached',
+                text: 'The product stock is at its maximum.',
+            });
         }
+
         fetch('/cartupdation', {
             method: 'POST',
             headers: {
@@ -319,18 +327,26 @@ function changeQuantity(productId, increment) {
             },
             body: JSON.stringify({
                 productId,
-                count: increment
+                count: increment,
             })
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            location.reload()
+
+            const productTotal = parseFloat(data.productTotals.find(item => item.productId === productId)?.productTotal).toFixed(1);
+
+
             document.getElementById('totalvalue').textContent = `₹${data.totalSum}`;
-           
+            document.getElementById('displayTotal').textContent = data.totalSum;
+            document.getElementById('cartTotal').textContent = data.totalSum;
+
+            document.getElementById(`total_${productId}`).textContent = `Total: ₹${productTotal}`;
         });
     }
 }
+
+
 
         
         

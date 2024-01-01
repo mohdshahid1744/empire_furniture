@@ -577,17 +577,20 @@ const shoppingPage = async (req, res) => {
 
 
 
-   const updateCart = async (req, res) => {
+const updateCart = async (req, res) => {
     try {
         const productId = req.body.productId;
-        const count=req.body.count;
+        const count = req.body.count;
         const userId = req.session.user;
-        const product = await Product.find({ _id: productId });
-        console.log('UserId:', userId);
-        console.log('ProductId:', productId);
-console.log("req.body",req.body);
+
+        // Fetch the product
+        const product = await Product.findById(productId);
+        if (!product) {
+            console.error('Product not found');
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+
         const cartItem = await Cart.findOne({ UserId: userId, ProductId: productId });
-        console.log('CartItem:', cartItem);
 
         if (!cartItem) {
             console.error('Cart item not found');
@@ -599,9 +602,8 @@ console.log("req.body",req.body);
             return res.status(200).json({ success: true, message: 'Product is out of stock and has been removed from the cart.' });
         }
 
-
         if (count > 0) {
-            if (cartItem.Quantity < product[0].productStock) {
+            if (cartItem.Quantity < product.productStock) {
                 cartItem.Quantity += 1;
             }
         } else {
@@ -609,22 +611,28 @@ console.log("req.body",req.body);
                 cartItem.Quantity -= 1;
             }
         }
+
         await cartItem.save();
 
         const cartItems = await Cart.find({ UserId: userId }).populate('ProductId');
         let totalSum = 0;
-        cartItems.forEach((item) => {
-            totalSum += item.ProductId.offerPrice * item.Quantity;
+        
+
+        const productTotals = cartItems.map((item) => {
+            const productTotal = item.ProductId.offerPrice * item.Quantity;
+            totalSum += productTotal;
+            return { productId: item.ProductId._id, productTotal };
         });
+
         totalSum = totalSum.toFixed(1);
         console.log(totalSum);
-        res.json({ totalSum });
+
+        res.json({ totalSum, productTotals });
     } catch (error) {
         console.error(error);
         res.render('user/servererror');
     }
 };
-
 
 
 
