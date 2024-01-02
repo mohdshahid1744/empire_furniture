@@ -7,6 +7,23 @@
   place-items: center;
   background: #3b5d50;
 }
+.toggle-password {
+    position: absolute;
+    margin-top: 25px;
+    margin-left: -30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1; 
+}
+
+
+    .toggle-password::before {
+    content: '\1F441'; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-size: 18px;
+    color: #555;
+}
+
 </style>
     <div class="wrapper">
         <div class="title-text">
@@ -29,8 +46,11 @@
               </div>
               
               <div class="field">
-                <input type="password" name="password" placeholder="Password" required>
-              </div>
+                <input type="password" name="password" id="passwordInput" placeholder="Password" required>
+                <a  toggle="#passwordInput" class="eye toggle-password" style="text-decoration: none;" ></a>
+            </div>
+            
+            
               
               <div class="field btn">
                 <div class="btn-layer" style="margin-top: -6px;" ></div>
@@ -50,5 +70,15 @@
         }
       %>
       </div>
-      
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePassword = document.querySelector('.toggle-password');
+            const passwordInput = document.querySelector(togglePassword.getAttribute('toggle'));
+    
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+            });
+        });
+    </script>
       <%- include( '../partials/footer') %>
