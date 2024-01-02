@@ -631,6 +631,10 @@
                     productImage,
                     productPrice,
                 };
+				if (!userId) {
+                window.location.href = '/login';
+                return;
+				}
 
                 try {
                     const response = await fetch(`/wishlist/${productId}`, {
