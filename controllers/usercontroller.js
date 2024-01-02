@@ -357,13 +357,14 @@ const shopdetails = async (req, res) => {
 
     try {
         const products = await Product.find({ _id: req.query.id }).populate('productCategory');
-        const category = await Category.findById(products.productCategory);
+        
+        
         console.log("SD", products);
         const productImages = products.map(product => product.productImage.map(image => image.filename)).flat();
 
         console.log(products, productImages);
 
-        res.render("user/shopdetails", { products, productImages, userId, category });
+        res.render("user/shopdetails", { products, productImages, userId });
     } catch (error) {
         console.error(error);
         res.render('user/servererror');
@@ -583,7 +584,6 @@ const updateCart = async (req, res) => {
         const count = req.body.count;
         const userId = req.session.user;
 
-        // Fetch the product
         const product = await Product.findById(productId);
         if (!product) {
             console.error('Product not found');

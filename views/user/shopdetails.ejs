@@ -183,14 +183,20 @@
                                 <span> - 5 Reviews</span>
                             </div>
                             <% if (products[0].productPrice !== products[0].offerPrice) { %>
-                                <h3>
-                                    <span style="text-decoration: line-through;">₹<%= products[0].productPrice %></span>
+                                <h3 style="color: #000000;">
+                                    <span style="text-decoration: line-through;color: #777;">₹<%= products[0].productPrice %></span>
                         
                                     ₹<%= products[0].offerPrice %>
+                                    
                                 </h3>
+                                <ul style="list-style: none;">
+                                    <li style="margin-right: 40px; color: #e44d26;font-weight: bold;"><span>-</span><%= products[0].productCategory.discountPrice %>% OFF </li>
+                                </ul>
+                                
                             <% } else { %>
                                 <h3>₹<%= products[0].productPrice %></h3>
                             <% } %>
+                            
                             <div class="product__details__last__option">
                                
                                 <ul style="list-style: none;">
@@ -255,10 +261,7 @@
                                                 For those seeking a touch of luxury, consider a plush, velvet-upholstered accent chair. Its chic design effortlessly elevates any room, offering both comfort and a statement piece for your decor.</p>
                                             <p>In the realm of versatility, folding chairs stand out. Compact and convenient, they're perfect for impromptu gatherings or additional seating when the need arises. Practicality meets comfort in these foldable wonders.</p>
                                         </div>
-                                        <div class="product__details__tab__content__item">
-                                            <h5>Material used</h5>
-                                            <p>Chairs are crafted from a diverse range of materials, each lending its unique character to the design. Wood, a timeless choice, provides warmth and durability, with options like oak, walnut, and mahogany. Metal chairs offer a sleek, modern aesthetic, often aluminum or steel for strength. Upholstered chairs blend comfort and style, featuring fabrics like linen, leather, or velvet. Plastic chairs, lightweight and versatile, suit contemporary settings. Innovative materials like acrylic and molded polymers push the boundaries of design. Whatever the choice, materials play a pivotal role, defining a chair's aesthetics, comfort, and longevity in both form and function.</p>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             
@@ -273,7 +276,7 @@
 
   
 		<!-- Start Footer Section -->
-		<footer class="footer-section">
+		<footer class="footer-section" style="margin-top: 120px;">
 			<div class="container relative">
 
 				<div class="sofa-img">
