@@ -32,7 +32,7 @@ app.use('/',userRoute)
 app.use('/admin',adminRoute)
 
 mongoose
-    .connect('mongodb+srv://mohdshahidv1221:Shahid1744@cluster0.qk5xatw.mongodb.net/Empirefurni?retryWrites=true&w=majority')
+    .connect('mongodb+srv://empirefurni001:wPIvYCdizRVs4dA8@cluster0.8v4wn.mongodb.net//Empirefurni?retryWrites=true&w=majority')
     .then(() => console.log('DB Connected'))
     .catch(err => console.log(err))
 
